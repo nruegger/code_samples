@@ -1,0 +1,28 @@
+div ng-if="widget.widget_type == 'contact'"
+  .widget-header
+    .icon.icons-contacts
+    = render 'widgets/widget_header'
+  .widget-content.gridster-item-disable-move
+    = render 'widgets/widget_filter'
+    = render 'widgets/widget_empty_source'
+    .widget-item-list
+      .widget-item-list-body whenScrollEnds='widget.loadNextItems()'
+        .widget-item-list-item ng-repeat='item in widget.items track by $index'
+          .without-left-padding
+            .row
+              .col-xs-3.pull-left
+                .contact-photo
+                  = image_tag('icons/default_contact.png', {'ng-if' => 'item.photo_link.length == 0'})
+                  img.img-circle src='{{item.photo_link}}&sz=96' ng-if='item.photo_link.length > 0'
+                  span.icon-sm.icon-overlay class='{{item.icon}}' tooltip-html='item.source_label' tooltip-append-to-body='true' tooltip-class='item-source-label'
+              .col-xs-9.pull-left
+                .line1.with-dots.dark-sender
+                  span.sender
+                    | {{item.name}}
+                .line2
+                  div.primary-email.with-dots.ng-visit-source url='{{item.primary_email}}' widget-type='{{widget.widget_type}}' link-type='email'
+                    | {{item.primary_email }}
+                .line3
+                  span.phone.ng-visit-source url='{{item.phone[0]}}' widget-type='{{widget.widget_type}}' link-type='phone'
+                    | {{item.phone[0] | mb_phone}}
+        = render 'widgets/widget_texts'
