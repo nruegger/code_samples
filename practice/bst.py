@@ -1,3 +1,5 @@
+#simple binary search tree implementation in python
+
 class Node(object):
     def __init__(self, value):
         self.value = value
@@ -34,6 +36,8 @@ class BST(object):
                 self.bi_insert(start.right, new_val)
             else:
                 start.right = Node(new_val)
+    
+#Test Cases
     
 # Set up tree
 tree = BST(4)
